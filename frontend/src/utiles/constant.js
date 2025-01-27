@@ -1,4 +1,4 @@
-const BackendURL = "https://job-portal-sy3g.vercel.app";
+const BackendURL = "https://421b397b.job-portal1.pages.dev";
 
 export const connectURL = `${BackendURL}/api/a1/user`;
 export const jobAPI = `${BackendURL}/api/a1/job`;
