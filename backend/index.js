@@ -24,12 +24,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// const corsOptions = {
-//   origin: "https://job-portal-xi-six.vercel.app", // Your frontend URL
-//   credentials: true,
-// };
+// Define your allowed origin
+const allowedOrigin = "https://job-portal-xi-six.vercel.app" || "http://localhost:5173";
 
-app.use(cors());
+// CORS options
+const corsOptions = {
+  origin: allowedOrigin, // Allow only this origin
+  credentials: true, // Allow credentials
+};
+
+// Use CORS middleware with options
+app.use(cors(corsOptions));
 
 //Creation of API'S
 
@@ -44,7 +49,6 @@ app.use("/api/a1/application", applicationRoute);
 "http://localhost:5000/api/a1/user/login"
 "http://localhost:5000/api/a1/user/profile/update"
 */
-
 
 const port = process.env.PORT || 3000;
 
