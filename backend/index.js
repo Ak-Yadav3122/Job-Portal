@@ -25,7 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Define your allowed origin
-const allowedOrigin = "https://job-portal-xi-six.vercel.app" || "http://localhost:5173";
+const allowedOrigin = "https://job-portal-xi-six.vercel.app" || "http://localhost:5173" || "https://job-portal-dont.onrender.com/api/a1/user/login";
 
 // CORS options
 const corsOptions = {
