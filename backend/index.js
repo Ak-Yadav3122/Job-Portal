@@ -45,13 +45,6 @@ app.use("/api/a1/application", applicationRoute);
 "http://localhost:5000/api/a1/user/profile/update"
 */
 
-// serve the frontend file on backend step3
-app.use(express.static(path.join(_dirname, "/frontend/dist"))); // /dist created wehn we run the commond npm run build
-
-// adding Frontend and backend step4
-app.get("*", (_, res) => {
-  res.sendFile(path.resolve(_dirname, "frontend", "dist", "index.html"));
-});
 
 const port = process.env.PORT || 3000;
 
