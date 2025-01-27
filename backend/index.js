@@ -24,12 +24,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-const corsOptions = {
-  origin: "https://job-portal-xi-six.vercel.app", // Your frontend URL
-  credentials: true,
-};
+// const corsOptions = {
+//   origin: "https://job-portal-xi-six.vercel.app", // Your frontend URL
+//   credentials: true,
+// };
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 //Creation of API'S
 
