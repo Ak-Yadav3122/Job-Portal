@@ -30,7 +30,7 @@ const allowedOrigin = "https://job-portal-xi-six.vercel.app";
 // CORS options
 const corsOptions = {
   origin: allowedOrigin, // Allow only this origin
-  credentials: true, // Allow credentials
+  // credentials: true, // Allow credentials
 };
 
 // Use CORS middleware with options
