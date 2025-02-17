@@ -49,24 +49,23 @@ const SignUp = () => {
     }
     try {
       dispatch(setLoading(true));
-      const res = await axios.post(
-        `${connectURL}/register`,
-        formData,
-        {
-          method: "POST", //important
-          withCredentials: "include", //important
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const res = await axios.post(`${connectURL}/register`, formData, {
+        method: "POST", //important
+        withCredentials: "include", //important
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       if (res.data.success) {
         navigate("/login");
         toast.success(res.data.message);
       }
     } catch (error) {
       console.log(error);
-      toast.error(error.data.message);
+      // Update error handling to access the message correctly
+      const errorMessage =
+        error.response?.data?.message || "An error occurred. Please try again.";
+      toast.error(errorMessage);
     } finally {
       dispatch(setLoading(false));
     }

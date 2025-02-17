@@ -24,13 +24,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// Define your allowed origin
-const allowedOrigin = ["https://job-portal-xi-six.vercel.app", "*"];
+// Define your frontend url allowed origin
+const allowedOrigin = "https://job-portal-xi-six.vercel.app"
 
 // CORS options
 const corsOptions = {
   origin: allowedOrigin, // Allow only this origin
-  // credentials: true, // Allow credentials
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type"],
+  credentials: true, // Allow credentials
 };
 
 // Use CORS middleware with options
@@ -42,13 +44,6 @@ app.use("/api/a1/user", userRoute);
 app.use("/api/a1/company", companyRoute);
 app.use("/api/a1/job", jobRoute);
 app.use("/api/a1/application", applicationRoute);
-
-//FOR UNDERSTANDING
-/* By using /api/a1/user our Api lookes like and using these we check our code on postman
-"http://localhost:5000/api/a1/user/register"
-"http://localhost:5000/api/a1/user/login"
-"http://localhost:5000/api/a1/user/profile/update"
-*/
 
 const port = process.env.PORT || 3000;
 
