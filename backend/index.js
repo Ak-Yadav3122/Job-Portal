@@ -22,9 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Define your frontend url allowed origin
-const allowedOrigins = ["https://job-portal-xi-six.vercel.app", // Your frontend
-"http://localhost:5173", // Local frontend
-];
+const allowedOrigins ="https://job-portal-xi-six.vercel.app"
 
 
 // Use CORS middleware and configure it
