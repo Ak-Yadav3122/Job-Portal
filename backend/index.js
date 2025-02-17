@@ -35,13 +35,13 @@ app.use(cors({
   credentials: true,  // Allow credentials (cookies, headers)
 }));
 
-// Middleware to explicitly set CORS headers
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://job-portal-xi-six.vercel.app"); // Allow all origins or specific one
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  next(); // Pass the request to the next handler
-});
+app.use(function (req, res, next) {
+  //Enabling CORS
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
+    next();
+  });
 //Creation of API'S
 
 app.use("/api/a1/user", userRoute);
