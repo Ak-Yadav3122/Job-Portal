@@ -24,7 +24,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:5000', // Replace with your local backend server URL
+        target: 'https://job-portal-hihm.vercel.app', // Replace with your local backend server URL
         changeOrigin: true,
         secure: false,  // If using self-signed certificates or insecure servers
         rewrite: (path) => path.replace(/^\/api/, ''), // Removes the "/api" prefix if needed
