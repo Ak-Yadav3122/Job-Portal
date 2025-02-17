@@ -25,13 +25,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Define your frontend url allowed origin
-const allowedOrigin = "https://job-portal-xi-six.vercel.app"
+const allowedOrigin = ["https://job-portal-xi-six.vercel.app","*"]
 
 // CORS options
 const corsOptions = {
   origin: allowedOrigin, // Allow only this origin
   methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type"],
+  allowedHeaders: ["Content-Type","Authorization"],
   credentials: true, // Allow credentials
 };
 
