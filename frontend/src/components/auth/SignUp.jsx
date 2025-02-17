@@ -51,7 +51,7 @@ const SignUp = () => {
       dispatch(setLoading(true));
       const res = await axios.post(`${connectURL}/register`, formData, {
         method: "POST", //important
-        withCredentials: "include", //important
+        withCredentials: "true", //important
         headers: {
           "Content-Type": "multipart/form-data",
         },
