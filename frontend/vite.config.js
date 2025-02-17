@@ -4,9 +4,13 @@ import { defineConfig } from "vite"
 
 export default defineConfig({
   plugins: [react()],
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5000',  // Your backend URL
+        changeOrigin: true,
+        secure: false,  // For local development with self-signed certificates
+      },
     },
   },
-})
+});
