@@ -25,20 +25,34 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Define your frontend url allowed origin
-const allowedOrigin = ["https://job-portal-xi-six.vercel.app", // Your frontend
+const allowedOrigins = ["https://job-portal-xi-six.vercel.app", // Your frontend
 "http://localhost:5173", // Local frontend
 ];
 
 // CORS options
-const corsOptions = {
-  origin: allowedOrigin, // Allow only this origin
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type","Authorization"],
-  credentials: true, // Allow credentials
-};
+// const corsOptions = {
+//   origin: allowedOrigin, // Allow only this origin
+//   methods: ["GET", "POST", "PUT", "DELETE"],
+//   allowedHeaders: ["Content-Type","Authorization"],
+//   credentials: true, // Allow credentials
+// };
 
-// Use CORS middleware with options
-app.use(cors(corsOptions));
+// // Use CORS middleware with options
+// app.use(cors(corsOptions));
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+  })
+);
 
 //Creation of API'S
 
