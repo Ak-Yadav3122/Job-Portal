@@ -54,6 +54,7 @@ const SignUp = () => {
         withCredentials: "true", //important
         headers: {
           "Access-Control-Allow-Origin": "https://job-portal-xi-six.vercel.app",
+          "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization",
           "Content-Type": "multipart/form-data",
         },
       });
