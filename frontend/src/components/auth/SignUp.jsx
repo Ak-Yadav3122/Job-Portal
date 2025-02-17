@@ -49,7 +49,7 @@ const SignUp = () => {
     }
     try {
       dispatch(setLoading(true));
-      const res = await axios.post(`${connectURL}/register`, formData, {
+      const res = await axios.post("https://job-portal-hihm.vercel.app/api/a1/user/register", formData, {
         method: "POST", //important
         withCredentials: "true", //important
         headers: {

@@ -15,9 +15,6 @@ import path from "path";
 
 dotenv.config({});
 
-// Optained the directorypath of backend for adding drontend and backend
-const _dirname = path.resolve();
-
 // using the middlewares
 
 app.use(express.json());
@@ -29,31 +26,14 @@ const allowedOrigins = ["https://job-portal-xi-six.vercel.app", // Your frontend
 "http://localhost:5173", // Local frontend
 ];
 
-// CORS options
-// const corsOptions = {
-//   origin: allowedOrigin, // Allow only this origin
-//   methods: ["GET", "POST", "PUT", "DELETE"],
-//   allowedHeaders: ["Content-Type","Authorization"],
-//   credentials: true, // Allow credentials
-// };
 
-// // Use CORS middleware with options
-// app.use(cors(corsOptions));
-
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type","Authorization"],
-  })
-);
+// Use CORS middleware and configure it
+app.use(cors({
+  origin: allowedOrigins,  // Allow requests from these origins
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Allow these HTTP methods
+  allowedHeaders: ['Content-Type', 'Authorization'],  // Allow these headers
+  credentials: true,  // Allow credentials (cookies, headers)
+}));
 
 //Creation of API'S
 
