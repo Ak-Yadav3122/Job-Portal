@@ -56,7 +56,7 @@ const SignUp = () => {
           method: "POST", //important
           headers: {
             "Content-Type": "multipart/form-data",
-          },withCredentials: "true", //important
+          },withCredentials: true, //important
         }
       );
       if (res.data.success) {
