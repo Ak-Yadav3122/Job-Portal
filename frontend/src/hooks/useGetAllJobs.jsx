@@ -3,11 +3,13 @@ import { jobAPI } from "@/utiles/constant";
 import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const useGetAllJobs = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { searchedQuery } = useSelector((store) => store.job);
+  
   useEffect(() => {
     const fetchAllJobs = async () => {
       try {
@@ -28,7 +30,7 @@ const useGetAllJobs = () => {
       }
     };
     fetchAllJobs();
-  }, []);
+  }, [searchedQuery, dispatch, navigate]);
 };
 
 export default useGetAllJobs;
