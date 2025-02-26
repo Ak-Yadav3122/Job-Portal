@@ -49,16 +49,13 @@ const SignUp = () => {
     }
     try {
       dispatch(setLoading(true));
-      const res = await axios.post(
-        `${connectURL}/register`,
-        formData,
-        {
-          method: "POST", //important
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },withCredentials: true, //important
-        }
-      );
+      const res = await axios.post(`${connectURL}/register`, formData, {
+        method: "POST", //important
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        withCredentials: true, //important
+      });
       if (res.data.success) {
         navigate("/login");
         toast.success(res.data.message);
@@ -82,7 +79,7 @@ const SignUp = () => {
   return (
     <div>
       <Navbar />
-      <div className='flex items-center justify-center max-w-7xl mx-auto'>
+      <div className="flex items-center justify-center max-w-7xl mx-auto">
         <form
           onSubmit={submitHandler}
           className="w-1/2 border border-gray-200 rounded-md p-4 my-10"
