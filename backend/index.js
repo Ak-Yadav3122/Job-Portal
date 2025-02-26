@@ -18,20 +18,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 
-// app.use(cors({
-//   origin: 'https://job-portal.aichchhik.xyz',
-//   credentials: true
-// }));
-
-const corsOptions = {
-  origin: 'https://job-portal.aichchhik.xyz', 
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS', 
-  credentials: true, 
-  optionsSuccessStatus: 204, 
-  allowedHeaders: ['Content-Type', 'Authorization']
-};
-
-app.use(cors(corsOptions)); 
+app.use(cors({
+  origin: 'https://job-portal.aichchhik.xyz',
+  credentials: true
+}));
 
 //Creation of API'S
 
