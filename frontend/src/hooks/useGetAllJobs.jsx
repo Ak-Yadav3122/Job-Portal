@@ -1,6 +1,6 @@
 import { setAllJobs } from "@/redux/jobSlice";
 import { jobAPI } from "@/utiles/constant";
-import axios from "axios";
+import axiosInstance from '@/utils/axiosConfig';
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -13,12 +13,7 @@ const useGetAllJobs = () => {
   useEffect(() => {
     const fetchAllJobs = async () => {
       try {
-        const res = await axios.get(`${jobAPI}/get?keyword=${searchedQuery}`, {
-          withCredentials: true,
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+        const res = await axiosInstance.get(`${jobAPI}/get?keyword=${searchedQuery}`);
         if (res.data.success) {
           dispatch(setAllJobs(res.data.jobs));
         }
