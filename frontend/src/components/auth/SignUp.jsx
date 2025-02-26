@@ -33,12 +33,9 @@ const SignUp = () => {
   };
 
   //create submit handlere to send the form data on database and store it
-
   const submitHandler = async (e) => {
     e.preventDefault();
-    // console.log(input);
-    //creation of form data
-    const formData = new FormData(); //formdata object
+    const formData = new FormData();
     formData.append("fullname", input.fullname);
     formData.append("email", input.email);
     formData.append("phoneNumber", input.phoneNumber);
@@ -47,11 +44,11 @@ const SignUp = () => {
     if (input.file) {
       formData.append("file", input.file);
     }
+  
     try {
       dispatch(setLoading(true));
       const res = await axios.post(`${connectURL}/register`, formData, {
-        method: "POST", //important
-        withCredentials: "true", //important
+        withCredentials: true,
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -62,10 +59,7 @@ const SignUp = () => {
       }
     } catch (error) {
       console.log(error);
-      // Update error handling to access the message correctly
-      const errorMessage =
-        error.response?.data?.message || "An error occurred. Please try again.";
-      toast.error(errorMessage);
+      toast.error(error.response?.data?.message || "An error occurred");
     } finally {
       dispatch(setLoading(false));
     }

@@ -3,6 +3,7 @@ import { jobAPI } from "@/utiles/constant";
 import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { navigate } from "react-router-dom";
 
 const useGetAllJobs = () => {
   const dispatch = useDispatch();
@@ -21,6 +22,9 @@ const useGetAllJobs = () => {
         }
       } catch (error) {
         console.log(error);
+        if (error.response?.status === 401) {
+          navigate("/login");
+        }
       }
     };
     fetchAllJobs();

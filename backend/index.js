@@ -26,32 +26,23 @@ const allowedOrigins = [
   "https://job-portal.aichchhik.xyz",
 ];
 
+// Place this before any routes
 app.use(
   cors({
     origin: function (origin, callback) {
-      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
         callback(new Error("Not allowed by CORS"));
       }
     },
-    methods: ["GET", "HEAD", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allowedHeaders: [
-      "Origin",
-      "X-Requested-With",
-      "Content-Type",
-      "Accept",
-      "Authorization",
-      "x-client-key",
-      "x-client-token",
-      "x-client-secret",
-    ],
     credentials: true,
-    preflightContinue: false,
-    optionsSuccessStatus: 204,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
+app.options("*", cors());
 app.use("/api/a1/user", userRoute);
 app.use("/api/a1/company", companyRoute);
 app.use("/api/a1/job", jobRoute);
