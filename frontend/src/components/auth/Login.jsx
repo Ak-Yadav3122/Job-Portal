@@ -39,11 +39,11 @@ const Login = () => {
     try {
       dispatch(setLoading(true));
       const res = await axios.post(`${connectURL}/login`, input, {
-        withCredentials: true,
         headers: {
-          "Content-Type": "application/json",
-        },
-      });
+          'Content-Type': 'application/json'
+      },
+      withCredentials: true
+  });
 
       if (res.data.success) {
         dispatch(setAuthUser(res.data.user));

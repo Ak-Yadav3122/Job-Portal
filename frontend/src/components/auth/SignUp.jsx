@@ -50,11 +50,10 @@ const SignUp = () => {
     try {
       dispatch(setLoading(true));
       const res = await axios.post(`${connectURL}/register`, formData, {
-        method: "POST", //important
         headers: {
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "multipart/form-data"
         },
-        withCredentials: true, //important
+        withCredentials: true
       });
       if (res.data.success) {
         navigate("/login");
