@@ -10,6 +10,7 @@ import { toast } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "@/redux/authSlice";
 import { Loader2 } from "lucide-react";
+import { connectURL } from "@/utiles/constant";
 
 const SignUp = () => {
   const [input, setInput] = useState({
@@ -49,7 +50,7 @@ const SignUp = () => {
     try {
       dispatch(setLoading(true));
       const res = await axios.post(
-        "http://localhost:5000/api/a1/user/register",
+        `${connectURL}/register`,
         formData,
         {
           method: "POST", //important
