@@ -44,7 +44,7 @@ const Login = () => {
           "Content-Type": "application/json",
         },
       });
-    
+
       if (res.data.success) {
         dispatch(setAuthUser(res.data.user));
         navigate("/");
@@ -52,7 +52,7 @@ const Login = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error(error.response?.data?.message || "Invalid credentials");
+      toast.error(error?.response?.data?.message || "An error occurred");
     } finally {
       dispatch(setLoading(false));
     }

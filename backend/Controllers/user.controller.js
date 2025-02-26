@@ -7,19 +7,19 @@ import cloudinary from "../Utils/Cloudinary.js";
 export const register = async (req, res) => {
   try {
     const { fullname, email, phoneNumber, password, role } = req.body;
+    // console.log(fullname, email, phoneNumber, password, role);
 
     if (!fullname || !email || !phoneNumber || !password || !role) {
+      // console.log(fullname,email);
+
       return res.status(400).json({
         message: "Something is missing",
         success: false,
       });
     }
-    let cloudResponse = null;
-    if (req.file) {
-      const file = req.file;
-      const fileUri = getDataUri(file);
-      cloudResponse = await cloudinary.uploader.upload(fileUri.content);
-    }
+    const file = req.file;
+    const fileUri = getDataUri(file);
+    const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
 
     const user = await User.findOne({ email });
     if (user) {
@@ -36,24 +36,46 @@ export const register = async (req, res) => {
       phoneNumber,
       password: hashedPassword,
       role,
-      profile: {
-        profilePhoto: cloudResponse ? cloudResponse.secure_url : "",
+      profile:{
+          profilePhoto:cloudResponse.secure_url,
       }
     });
 
+    // Success response
     return res.status(201).json({
       message: `Thanks! Dear ${fullname}, Your account has been created successfully.`,
       success: true,
     });
   } catch (error) {
     console.log(error);
+
+    // Handle validation errors
+    if (error.name === "ValidationError") {
+      return res.status(400).json({
+        message: "Validation failed: " + error.message,
+        success: false,
+      });
+    }
+
+    // Handle duplicate key error (E11000)
+    if (error.code === 11000) {
+      if (error.keyPattern.User) {
+        return res.status(400).json({
+          message: "User already exists. Please use a different details.",
+          success: false,
+        });
+      }
+    }
+
+    // Generic error
     return res.status(500).json({
-      message: "An error occurred while creating your account",
+      message:
+        "An error occurred while creating your account. Please try again later.",
       success: false,
-      error: error.message
     });
   }
 };
+
 //login code
 
 export const login = async (req, res) => {
