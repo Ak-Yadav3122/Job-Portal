@@ -54,7 +54,7 @@ const SignUp = () => {
         formData,
         {
           method: "POST", //important
-          withCredentials: "true", //important
+          withCredentials: "include", //important
           headers: {
             "Content-Type": "multipart/form-data",
           },
