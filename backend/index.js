@@ -19,7 +19,7 @@ app.use(cookieParser());
 
 
 app.use(cors({
-  origin: 'https://job-portal.aichchhik.xyz',
+  origin: 'https://job-portal-aichchhiks-projects.vercel.app',
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
