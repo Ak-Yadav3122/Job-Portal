@@ -5,7 +5,7 @@ import { Input } from "../ui/input";
 import { RadioGroup } from "../ui/radio-group";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
-import axios from "axios";
+import axiosInstance from '@/utils/axiosConfig';
 import { connectURL } from "@/utiles/constant";
 import { toast } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
@@ -47,10 +47,9 @@ const SignUp = () => {
   
     try {
       dispatch(setLoading(true));
-      const res = await axios.post(`${connectURL}/register`, formData, {
-        withCredentials: true,
+      const res = await axiosInstance.post(`${connectURL}/register`, formData, {
         headers: {
-          "Content-Type": "multipart/form-data",
+          'Content-Type': 'multipart/form-data',
         },
       });
       if (res.data.success) {
@@ -58,8 +57,8 @@ const SignUp = () => {
         toast.success(res.data.message);
       }
     } catch (error) {
-      console.log(error);
-      toast.error(error.response?.data?.message || "An error occurred");
+      console.error(error);
+      toast.error(error.response?.data?.message || "Registration failed");
     } finally {
       dispatch(setLoading(false));
     }
