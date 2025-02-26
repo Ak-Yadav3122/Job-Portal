@@ -21,26 +21,36 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// Define your frontend url allowed origin
-const allowedOrigins ="https://job-portal-xi-six.vercel.app"
+const allowedOrigins = [
+  "https://job-portal-xi-six.vercel.app",
+  "https://job-portal.aichchhik.xyz",
+];
 
-
-// Use CORS middleware and configure it
-app.use(cors({
-  origin: allowedOrigins,  // Allow requests from these origins
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Allow these HTTP methods
-  allowedHeaders: ['Content-Type', 'Authorization'],  // Allow these headers
-  credentials: true,  // Allow credentials (cookies, headers)
-}));
-
-app.use(function (req, res, next) {
-  //Enabling CORS
-  res.header("Access-Control-Allow-Origin", "https://job-portal-xi-six.vercel.app");
-  res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
-    next();
-  });
-//Creation of API'S
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "HEAD", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: [
+      "Origin",
+      "X-Requested-With",
+      "Content-Type",
+      "Accept",
+      "Authorization",
+      "x-client-key",
+      "x-client-token",
+      "x-client-secret",
+    ],
+    credentials: true,
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+  })
+);
 
 app.use("/api/a1/user", userRoute);
 app.use("/api/a1/company", companyRoute);
