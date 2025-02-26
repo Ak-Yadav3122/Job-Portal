@@ -6,7 +6,6 @@ import { RadioGroup } from "../ui/radio-group";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
 import axios from "axios";
-// import { connectURL } from "@/utiles/constant";
 import { toast } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "@/redux/authSlice";
@@ -83,7 +82,7 @@ const SignUp = () => {
   return (
     <div>
       <Navbar />
-      <div>
+      <div className='flex items-center justify-center max-w-7xl mx-auto'>
         <form
           onSubmit={submitHandler}
           className="w-1/2 border border-gray-200 rounded-md p-4 my-10"
