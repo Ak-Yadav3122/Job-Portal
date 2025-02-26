@@ -20,7 +20,9 @@ app.use(cookieParser());
 
 app.use(cors({
   origin: 'https://job-portal.aichchhik.xyz',
-  credentials: true
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
 //Creation of API'S
