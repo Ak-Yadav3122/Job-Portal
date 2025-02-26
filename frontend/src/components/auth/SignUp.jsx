@@ -5,7 +5,7 @@ import { Input } from "../ui/input";
 import { RadioGroup } from "../ui/radio-group";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
-import axiosInstance from '@/utils/axiosConfig';
+import axios from "axios";
 import { toast } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "@/redux/authSlice";
@@ -36,7 +36,9 @@ const SignUp = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
+    // console.log(input);
+    //creation of form data
+    const formData = new FormData(); //formdata object
     formData.append("fullname", input.fullname);
     formData.append("email", input.email);
     formData.append("phoneNumber", input.phoneNumber);
@@ -47,10 +49,12 @@ const SignUp = () => {
     }
     try {
       dispatch(setLoading(true));
-      const res = await axiosInstance.post(`${connectURL}/register`, formData, {
+      const res = await axios.post(`${connectURL}/register`, formData, {
+        method:"POST",
         headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+          "Content-Type": "multipart/form-data"
+        },
+        withCredentials: true
       });
       if (res.data.success) {
         navigate("/login");
@@ -58,7 +62,10 @@ const SignUp = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error(error?.message || "Registration failed. Please try again.");
+      // Update error handling to access the message correctly
+      const errorMessage =
+        error.response?.data?.message || "An error occurred. Please try again.";
+      toast.error(errorMessage);
     } finally {
       dispatch(setLoading(false));
     }
