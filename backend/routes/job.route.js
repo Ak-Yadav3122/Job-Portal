@@ -1,5 +1,5 @@
 import express from "express";
-import isAuthenticated from "../auth/isAuthanticated.js";
+import isAuthenticated from "../middlewares/isAuthanticated.js";
 import { getAdminJobs, getAllJobs, getJobById, postJob } from "../Controllers/job.controller.js";
 
 const router = express.Router();

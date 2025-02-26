@@ -6,7 +6,7 @@ import { RadioGroup } from "../ui/radio-group";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
 import axios from "axios";
-import { connectURL } from "@/utiles/constant";
+// import { connectURL } from "@/utiles/constant";
 import { toast } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "@/redux/authSlice";
@@ -19,7 +19,7 @@ const SignUp = () => {
     phoneNumber: "",
     password: "",
     role: "",
-    file: "",
+    // file: "",
   });
   //find the loading by using useSelector(store=>store.auth);
   const { loading, user } = useSelector((store) => store.auth);
@@ -49,13 +49,17 @@ const SignUp = () => {
     }
     try {
       dispatch(setLoading(true));
-      const res = await axios.post(`${connectURL}/register`, formData, {
-        method: "POST", //important
-        withCredentials: "true", //important
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const res = await axios.post(
+        "http://localhost:5000/api/a1/user/register",
+        formData,
+        {
+          method: "POST", //important
+          withCredentials: "include", //important
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       if (res.data.success) {
         navigate("/login");
         toast.success(res.data.message);
