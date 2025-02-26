@@ -23,23 +23,15 @@ app.use(cookieParser());
 //   credentials: true
 // }));
 
-app.use(
-  cors({
-    origin: "https://job-portal.aichchhik.xyz", // ✅ Allow only frontend domain
-    credentials: true, // ✅ Allow cookies/auth headers
-    methods: ["GET", "POST", "PUT", "DELETE"], // ✅ Allowed request methods
-    allowedHeaders: ["Content-Type", "Authorization"], // ✅ Allowed headers
-  })
-);
+const corsOptions = {
+  origin: 'https://job-portal.aichchhik.xyz', 
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS', 
+  credentials: true, 
+  optionsSuccessStatus: 204, 
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
 
-// ✅ Handle Preflight Requests (Fix CORS Error for POST Requests)
-app.options("*", (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "https://job-portal.aichchhik.xyz");
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.status(200).end();
-});
+app.use(cors(corsOptions)); 
 
 //Creation of API'S
 
