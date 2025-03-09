@@ -36,9 +36,14 @@ const SignUp = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    // console.log(input);
-    //creation of form data
-    const formData = new FormData(); //formdata object
+    
+    // Validate form data
+    if (!input.fullname || !input.email || !input.phoneNumber || !input.password || !input.role) {
+      toast.error("Please fill all required fields");
+      return;
+    }
+    
+    const formData = new FormData();
     formData.append("fullname", input.fullname);
     formData.append("email", input.email);
     formData.append("phoneNumber", input.phoneNumber);
@@ -47,24 +52,33 @@ const SignUp = () => {
     if (input.file) {
       formData.append("file", input.file);
     }
+    
     try {
       dispatch(setLoading(true));
+      
+      // Set longer timeout for registration request
       const res = await axios.post(`${connectURL}/register`, formData, {
-        method:"POST",
+        timeout: 60000, // 60 seconds timeout
         headers: {
           "Content-Type": "multipart/form-data"
         },
         withCredentials: true
       });
+      
       if (res.data.success) {
         navigate("/login");
         toast.success(res.data.message);
       }
     } catch (error) {
       console.log(error);
-      // Update error handling to access the message correctly
-      const errorMessage =
-        error.response?.data?.message || "An error occurred. Please try again.";
+      let errorMessage = "Registration failed. Please try again.";
+      
+      if (error.code === "ECONNABORTED" || error.response?.status === 504) {
+        errorMessage = "Request timed out. Please try again with a smaller image file.";
+      } else if (error.response?.data?.message) {
+        errorMessage = error.response.data.message;
+      }
+      
       toast.error(errorMessage);
     } finally {
       dispatch(setLoading(false));

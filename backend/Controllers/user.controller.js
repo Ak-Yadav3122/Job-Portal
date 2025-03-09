@@ -7,27 +7,48 @@ import cloudinary from "../Utils/Cloudinary.js";
 export const register = async (req, res) => {
   try {
     const { fullname, email, phoneNumber, password, role } = req.body;
-    // console.log(fullname, email, phoneNumber, password, role);
 
     if (!fullname || !email || !phoneNumber || !password || !role) {
-      // console.log(fullname,email);
-
       return res.status(400).json({
         message: "Something is missing",
         success: false,
       });
     }
-    const file = req.file;
-    const fileUri = getDataUri(file);
-    const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
 
-    const user = await User.findOne({ email });
-    if (user) {
+    // Check if user already exists before uploading to Cloudinary
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
       return res.status(400).json({
-        message: "User already exist with this email.",
+        message: "User already exists with this email.",
         success: false,
       });
     }
+
+    let profilePhotoUrl = "";
+    
+    // Only upload to Cloudinary if file exists
+    if (req.file) {
+      try {
+        const file = req.file;
+        const fileUri = getDataUri(file);
+        
+        // Set timeout and optimization options for Cloudinary
+        const cloudResponse = await cloudinary.uploader.upload(fileUri.content, {
+          resource_type: "image",
+          folder: "job_portal_profiles",
+          quality: "auto",
+          fetch_format: "auto",
+          timeout: 60000, // 60 seconds timeout
+        });
+        
+        profilePhotoUrl = cloudResponse.secure_url;
+      } catch (cloudinaryError) {
+        console.error("Cloudinary upload error:", cloudinaryError);
+        // Continue with default profile photo if Cloudinary fails
+        profilePhotoUrl = "https://res.cloudinary.com/demo/image/upload/v1/sample/default-profile.jpg";
+      }
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
 
     await User.create({
@@ -36,8 +57,8 @@ export const register = async (req, res) => {
       phoneNumber,
       password: hashedPassword,
       role,
-      profile:{
-          profilePhoto:cloudResponse.secure_url,
+      profile: {
+        profilePhoto: profilePhotoUrl || "",
       }
     });
 
@@ -59,12 +80,10 @@ export const register = async (req, res) => {
 
     // Handle duplicate key error (E11000)
     if (error.code === 11000) {
-      if (error.keyPattern.User) {
-        return res.status(400).json({
-          message: "User already exists. Please use a different details.",
-          success: false,
-        });
-      }
+      return res.status(400).json({
+        message: "User already exists. Please use different details.",
+        success: false,
+      });
     }
 
     // Generic error
