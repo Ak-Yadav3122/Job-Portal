@@ -17,13 +17,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+
 app.use(cors({
-  origin: ['https://job-portal.aichchhik.xyz', 'http://localhost:5173'],
+  origin: 'https://job-portal.aichchhik.xyz',
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-  exposedHeaders: ['set-cookie'],
-  maxAge: 86400
 }));
 
 //Creation of API'S
