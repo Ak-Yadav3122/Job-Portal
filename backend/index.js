@@ -36,9 +36,9 @@ const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
   connectDB();
-  console.log(`server is running at port: ${port}`);
+  console.log(`Your server is running at port: ${port}`);
 });
 
 app.get("/", (req, res) => {
-  res.send("Hello User, Your Backend is running");
+  res.send("Hello Jiii, Your Backend is successfully running");
 });
