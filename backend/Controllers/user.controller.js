@@ -13,7 +13,7 @@ export const register = async (req, res) => {
       // console.log(fullname,email);
 
       return res.status(400).json({
-        message: "Something is missing",
+        message: "Something is missing.",
         success: false,
       });
     }
@@ -24,7 +24,7 @@ export const register = async (req, res) => {
     const user = await User.findOne({ email });
     if (user) {
       return res.status(400).json({
-        message: "User already exist with this email.",
+        message: "User are already exist with this email.",
         success: false,
       });
     }
@@ -61,7 +61,7 @@ export const register = async (req, res) => {
     if (error.code === 11000) {
       if (error.keyPattern.User) {
         return res.status(400).json({
-          message: "User already exists. Please use a different details.",
+          message: "User already exists. Please use a different email.",
           success: false,
         });
       }
@@ -85,7 +85,7 @@ export const login = async (req, res) => {
 
     if (!email || !password || !role) {
       return res.status(400).json({
-        message: "Something is missing",
+        message: "Something is missing plese fill are details",
         success: false,
       });
     }
