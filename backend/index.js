@@ -19,7 +19,7 @@ app.use(cookieParser());
 
 const allowedOrigins = [
 "http://localhost:5173",
-"https://job-portal-f-virid.vercel.app/"
+"https://job-portal-f-virid.vercel.app"
 
 ];
 app.use(cors({
