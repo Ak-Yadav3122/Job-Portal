@@ -1,4 +1,4 @@
-const BackendURL = "https://job-portalb.vercel.app";
+const BackendURL = "http://localhost:5000";
 
 export const connectURL = `${BackendURL}/api/a1/user`;
 export const jobAPI = `${BackendURL}/api/a1/job`;
