@@ -18,8 +18,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 const allowedOrigins = [
-"http://job-portal.aichchhik.xyz",
-"http://localhost:5173"
+"https://job-portal.aichchhik.xyz",
+"http://localhost:5173",
+"https://jobportal-eta-drab.vercel.app"
 
 ];
 app.use(cors({
