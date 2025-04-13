@@ -70,7 +70,7 @@ export const getAllJobs = async (req, res) => {
         */
     const query = {
       $or: [
-        { title: { $regex: keyword, $options: "i" } }, // $options:"i" In this "i" is used for case insenstive either in small or capital does no matter.
+        { title: { $regex: keyword, $options: "i" } },
         { description: { $regex: keyword, $options: "i" } },
       ],
     };
@@ -78,7 +78,7 @@ export const getAllJobs = async (req, res) => {
       .populate({
         path: "company",
       })
-      .sort({ createdAt: -1 }); //.sort({createdAt:-1}); it is used to show data in assending order
+      .sort({ createdAt: -1 });
 
     if (!jobs) {
       return res.status(404).json({
@@ -134,7 +134,7 @@ export const getAdminJobs = async (req, res) => {
     }); 
     if (!jobs) {
       return res.status(404).json({
-        message: "Jobs not found.",
+        message: "Jobs are not found.",
         success: false,
       });
     }

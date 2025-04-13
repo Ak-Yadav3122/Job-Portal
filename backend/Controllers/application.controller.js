@@ -7,7 +7,7 @@ export const applyJob = async (req, res) => {
         const jobId = req.params.id;
         if (!jobId) {
             return res.status(400).json({
-                message: "Job id is required.",
+                message: "Job id is must be required.",
                 success: false
             })
         };
@@ -16,7 +16,7 @@ export const applyJob = async (req, res) => {
 
         if (existingApplication) {
             return res.status(400).json({
-                message: "You have already applied for this jobs",
+                message: "You have already applied for this Jobs role",
                 success: false
             });
         }
@@ -25,7 +25,7 @@ export const applyJob = async (req, res) => {
         const job = await Job.findById(jobId);
         if (!job) {
             return res.status(404).json({
-                message: "Job not found",
+                message: "Job are not found",
                 success: false
             })
         }
@@ -62,7 +62,7 @@ export const getAppliedJobs = async (req,res) => {
         });
         if(!application){
             return res.status(404).json({
-                message:"No Applications",
+                message:"No Applications are found",
                 success:false
             })
         };
