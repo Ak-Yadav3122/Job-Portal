@@ -7,31 +7,37 @@ import cloudinary from "../Utils/Cloudinary.js";
 export const register = async (req, res) => {
   try {
     const { fullname, email, phoneNumber, password, role } = req.body;
-    // console.log(fullname, email, phoneNumber, password, role);
 
     if (!fullname || !email || !phoneNumber || !password || !role) {
-
       return res.status(400).json({
         message: "Something is missing.",
         success: false,
       });
     }
-    const file = req.file;
-    const fileUri = getDataUri(file);
-    const cloudResponse = await cloudinary.uploader.upload(fileUri.content, {
-      timeout: 60000, // 60 seconds timeout
-      resource_type: 'auto',
-      quality: 'auto',
-      fetch_format: 'auto',
-    });
 
+    // Check if user already exists
     const user = await User.findOne({ email });
     if (user) {
       return res.status(400).json({
-        message: "User are already exist with this Email ID, Please use difference Email ID.",
+        message: "User already exists with this Email ID. Please use a different Email ID.",
         success: false,
       });
     }
+
+    let profilePhotoUrl = null;
+    
+    // Handle file upload only if file exists
+    if (req.file) {
+      const fileUri = getDataUri(req.file);
+      const cloudResponse = await cloudinary.uploader.upload(fileUri.content, {
+        timeout: 60000,
+        resource_type: 'auto',
+        quality: 'auto',
+        fetch_format: 'auto',
+      });
+      profilePhotoUrl = cloudResponse.secure_url;
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
 
     await User.create({
@@ -40,8 +46,8 @@ export const register = async (req, res) => {
       phoneNumber,
       password: hashedPassword,
       role,
-      profile:{
-          profilePhoto:cloudResponse.secure_url,
+      profile: {
+        profilePhoto: profilePhotoUrl,
       }
     });
 
