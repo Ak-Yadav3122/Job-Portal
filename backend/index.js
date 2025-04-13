@@ -9,7 +9,7 @@ import companyRoute from "./routes/company.routes.js";
 import jobRoute from "./routes/job.route.js";
 import applicationRoute from "./routes/application.routes.js";
 
-dotenv.config({});
+dotenv.config();
 
 // using the middlewares
 
@@ -17,13 +17,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+const allowedOrigins = [
+"https://job-portal.aichchhik.xyz"
 
+];
 app.use(cors({
-  origin: 'https://job-portal.aichchhik.xyz',
-  credentials: true,
+  origin:allowedOrigins,
+ 
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ["Content-Type", "Authorization", "Access-Control-Allow-Credentials"],
-  exposedHeaders: ["Access-Control-Allow-Credentials"],
+  exposedHeaders: ["Access-Control-Allow-Credentials"], credentials: true,
 }));
 
 //Creation of API'S
