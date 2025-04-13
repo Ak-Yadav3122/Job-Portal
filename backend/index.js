@@ -18,7 +18,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 const allowedOrigins = [
-"https://job-portal.aichchhik.xyz"
+"http://job-portal.aichchhik.xyz",
+"http://localhost:5173"
 
 ];
 app.use(cors({
