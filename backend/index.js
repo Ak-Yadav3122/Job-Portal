@@ -24,10 +24,10 @@ const allowedOrigins = [
 ];
 app.use(cors({
   origin:allowedOrigins,
- 
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
   allowedHeaders: ["Content-Type", "Authorization", "Access-Control-Allow-Credentials"],
-  exposedHeaders: ["Access-Control-Allow-Credentials"], credentials: true,
+  exposedHeaders: ["Access-Control-Allow-Credentials"],
+  credentials: true,
 }));
 
 //Creation of API'S
