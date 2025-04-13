@@ -18,7 +18,12 @@ export const register = async (req, res) => {
     }
     const file = req.file;
     const fileUri = getDataUri(file);
-    const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+    const cloudResponse = await cloudinary.uploader.upload(fileUri.content, {
+      timeout: 60000, // 60 seconds timeout
+      resource_type: 'auto',
+      quality: 'auto',
+      fetch_format: 'auto',
+    });
 
     const user = await User.findOne({ email });
     if (user) {
@@ -47,6 +52,13 @@ export const register = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
+
+    if (error.message && error.message.includes('timeout')) {
+      return res.status(504).json({
+        message: "Upload timeout. Please try again with a smaller image.",
+        success: false,
+      });
+    }
 
     // Handle validation errors
     if (error.name === "ValidationError") {
