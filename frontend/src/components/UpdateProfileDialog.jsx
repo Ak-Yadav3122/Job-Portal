@@ -39,7 +39,7 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
     if (file && file.type === "application/pdf") {
       setInput({ ...input, file });
     } else {
-      toast.error("Please upload a valid PDF file.");
+      toast.error("Please upload valid PDF file.");
     }
   };
 
