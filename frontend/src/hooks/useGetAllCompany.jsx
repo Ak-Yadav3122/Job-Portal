@@ -13,7 +13,6 @@ const useGetAllCompanies = () => {
           method: "GET",
           withCredentials: true,
         });
-        // console.log("called");
         if (res.data.success) {
           dispatch(setCompanies(res.data.companies));
         }
