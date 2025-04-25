@@ -10,7 +10,6 @@ import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
   useGetAllJobs();
-  //when admin login then  send them on /admin/cpmpanies route
 
   const { user } = useSelector(store => store.auth);
   const navigate = useNavigate();
