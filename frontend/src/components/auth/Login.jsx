@@ -19,7 +19,6 @@ const Login = () => {
     role: "",
   });
 
-  //find the loading by using useSelector(store=>store.auth);
   const { loading, user } = useSelector((store) => store.auth);
 
   const dispatch = useDispatch();
@@ -31,8 +30,6 @@ const Login = () => {
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
-
-  //create submit handlere to send the data on database and match with the existing data
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -57,8 +54,6 @@ const Login = () => {
       dispatch(setLoading(false));
     }
   };
-
-  // jab tak user logout na ho tab tak url ke throuth login pe na ja sake so this line of code help us
   useEffect(() => {
     if (user) {
       navigate("/");
@@ -122,7 +117,6 @@ const Login = () => {
               </div>
             </RadioGroup>
           </div>
-          {/* codentially render the loading after clickin om submit button*/}
           {loading ? (
             <Button className="w-full my-4">
               <Loader2 className="'mr-2 h-4 animate-spin" />
